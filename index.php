@@ -1,24 +1,33 @@
-<?php 
+<?php
 // creo array
-$characters = ['a','b','c','d','e','f','g','h','i','l','m','n','o','p','q','r','s','t','u','v','z'];
+$characters = 'a b c d e f g h i l m n o p q r s t u v z w y j k x ! £ $ % & / ( ) = ? ^ 1 2 3 4 5 6 7 8 9 0 A B C D E F G H I L M N O P Q R S T U V Z Y J K X';
+// divido stringa
+$characters = explode(' ', $characters);
+// mischio elementi dell'array
+shuffle($characters);
 
 // creo funzione che genera password
-function getRandomPassword($characters,$length){
+function getRandomPassword($characters, $length)
+{
     $password = '';
-    do{
-        $random_character = array_rand($characters, 1);
+    do {
+        // prendo un carattere dall'array
+        $random_character = next($characters);
+        // monto stringa
         $password .= $random_character;
-    }while ( strlen($password) < $length );
+    } while (strlen($password) < $length);
     return $password;
 };
 
 // se esiste una chiave 'length'
-if (isset($_GET['length'])) {
+if (!empty($_GET['length'])) {
     $length = $_GET['length'];
     // chiamo funzione che genera password
-    getRandomPassword($characters,$length);
-    var_dump(getRandomPassword($characters,$length));
-    die();
+    getRandomPassword($characters, $length);
+    // dichiaro messaggio da inserire
+    $message = getRandomPassword($characters, $length);
+} else {
+    $message = 'Nessun parametro inserito';
 }
 
 
@@ -26,6 +35,7 @@ if (isset($_GET['length'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,14 +44,18 @@ if (isset($_GET['length'])) {
     <!-- bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <!-- style -->
-    <link rel="stylesheet" href="style/style.css"> 
+    <link rel="stylesheet" href="style/style.css">
 </head>
+
 <body>
     <div class="container my-3">
         <!-- header -->
         <header class="text-center mb-5">
             <h1 class="text-secondary"> Strong Password Generator </h1>
-            <h3 class="text-white">Genera una password sicura</h3>
+            <h3 class="text-white mb-3">Genera una password sicura</h3>
+            <?php if (isset($_GET['length'])) : ?>
+                <div class="alert alert-primary" role="alert"> <?= $message ?> </div>
+            <?php endif; ?>
         </header>
         <!-- main -->
         <main>
@@ -54,4 +68,5 @@ if (isset($_GET['length'])) {
         </main>
     </div>
 </body>
+
 </html>
