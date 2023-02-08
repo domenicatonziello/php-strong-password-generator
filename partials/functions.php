@@ -23,11 +23,10 @@ function getRandomPassword($characters, $length)
 if (!empty($_GET['length'])) {
     $length = $_GET['length'];
     // chiamo funzione che genera password
-    getRandomPassword($characters, $length);
-    // dichiaro messaggio da inserire
     $message = getRandomPassword($characters, $length);
+    // apro sessione
+    session_start();
+    $_SESSION['message'] = $message;
     // redirect
     header('Location: redirect.php');
-} else {
-    $message = 'Nessun parametro inserito';
 }

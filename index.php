@@ -23,7 +23,7 @@ include 'partials/functions.php';
             <h1 class="text-secondary"> Strong Password Generator </h1>
             <h3 class="text-white mb-3">Genera una password sicura</h3>
             <?php if (isset($_GET['length'])) : ?>
-                <div class="alert alert-primary" role="alert"> <?= $message ?> </div>
+                <div class="alert alert-primary" role="alert"> Nessun parametro inserito </div>
             <?php endif; ?>
         </header>
         <!-- main -->

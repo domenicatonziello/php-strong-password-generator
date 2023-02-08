@@ -1,5 +1,11 @@
 <?php
-include __DIR__ . '/partials/functions.php';
+// apro la sessione
+session_start();
+// controllo se mi è arrivato il messaggio
+if (!empty($_SESSION['message'])) {
+    $message = $_SESSION['message'];
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -9,12 +15,12 @@ include __DIR__ . '/partials/functions.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Password</title>
 </head>
 
 <body>
     <main>
-        <div class="alert alert-primary" role="alert"> La tua password è: <?= $message ?> </div>
+        <div> La tua password è: <?= $message ?> </div>
     </main>
 </body>
 
